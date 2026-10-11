@@ -39,3 +39,17 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+.venv/
+assets/raw-jpg/
+assets/contact/
+assets/attachments/
+blender/out/
+assets/model/
+assets/cmp/
+
+# schwere Arbeitsdateien (nicht fuer den Build noetig)
+assets/archive/
+assets/cutouts/
+assets/ingredients/_work/
+__pycache__/
+*.pyc

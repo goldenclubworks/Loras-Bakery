@@ -1,36 +1,18 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Loras Bakery
 
-## Getting Started
+Next.js One-Pager (Next 16, React 19, Tailwind 4). Editorial-Look nach dem Brand Board, echte Fotos, Handschrift-Notizen, scroll-gesteuerte Zutaten und der Schokoladen-Zaun. Die 3D-Torte im Hero (three.js) lädt erst nach der ersten Eingabe.
 
-First, run the development server:
+- `pnpm dev` / `pnpm build` / `pnpm start`
+- Kontakt & Mailversand: `.env.example` nach `.env.local` kopieren und ausfüllen.
+- Offene Platzhalter finden: nach `<Ph` suchen (Impressum, Datenschutz, Sorten).
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Design-System
+- Farben (Tokens in `app/globals.css`): Creme, Blush, Dusty Rose, Chocolate, Berry, Blueberry, Mint, Plum, Salbei.
+- Schriften (`app/layout.tsx`): Bodoni Moda (Display), Jost (Text), Whisper (Lora's Handschrift).
+- Bausteine: `Title3D` (3D-Schriftzug), `HeroCake` + `three/HeroScene` (3D-Torte, Foto als Fallback), `LaceFence` (echte Schokoladen-Spitze, `public/lace-edge.svg`), `Preloader` (einmal pro Sitzung), `Script` (Handschrift schreibt sich auf), `Sketch` / `Dove` (gezeichnete Linien), `Ingredients` (Zutaten driften / fallen beim Scrollen), `InView` + CSS-Klassen `.write .sketch .clip-up .pop`.
+- GSAP wird erst nach dem ersten Bild nachgeladen (`lib/gsap.ts`), das Anfrageformular erst kurz vor dem Erreichen (`InquiryLazy`).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Bilder
+- Originale liegen in `assets/refs/`. Neu erzeugen: `node scripts/build_photos.mjs` (schreibt `public/photos/*.webp` und `lib/photos.ts`).
+- Zutaten freistellen: `node scripts/make_ingredients.mjs` (nutzt `scripts/cutout.py`, Apple Vision, offline, macOS, Python-venv in `.venv`).
+- Alte Version (3D-Torten, Buchstaben, 40 Fotos) liegt unverändert in `assets/archive/`.
