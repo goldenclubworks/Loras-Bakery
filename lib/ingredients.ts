@@ -1,32 +1,56 @@
-// Automatisch erzeugt von scripts/make_ingredients.mjs. Nicht von Hand ändern.
+// Automatisch erzeugt von scripts/import_cutouts.mjs. Nicht von Hand ändern.
 export const ingredientSize = {
   "aril-a": [
-    79,
-    77
+    295,
+    300
+  ],
+  "aril-b": [
+    258,
+    300
+  ],
+  "blueberry": [
+    300,
+    291
+  ],
+  "currant-a": [
+    263,
+    300
   ],
   "currant-b": [
-    72,
-    70
+    233,
+    300
   ],
-  "currant-c": [
-    81,
-    81
+  "currant-big": [
+    300,
+    299
   ],
-  "mint-a": [
-    95,
-    54
+  "mint-leaf-a": [
+    260,
+    300
   ],
-  "raspberry-a": [
-    106,
-    109
+  "mint-leaf-b": [
+    300,
+    289
   ],
-  "raspberry-b": [
-    322,
+  "mint-sprig": [
+    320,
+    252
+  ],
+  "raspberry-side": [
+    300,
+    297
+  ],
+  "raspberry-top": [
+    300,
     298
   ],
-  "strawberry-e": [
-    385,
-    420
+  "sprinkles": [
+    340,
+    284
+  ],
+  "strawberry": [
+    254,
+    300
   ]
 } as const satisfies Record<string, readonly [number, number]>;
 

@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { photos, type PhotoId } from "@/lib/photos";
 import Divider from "../Divider";
+import Ingredients from "../Ingredients";
 import Reveal from "../Reveal";
 import Script from "../Script";
 
@@ -11,7 +12,7 @@ import Script from "../Script";
 const ids: PhotoId[] = [
   "lace-dark-berries", "tart-dove", "lace-fruit-top", "slice-blue-close", "glaze-roses", "lace-tights",
   "easter-berries", "cupcake-shoes", "mirror-slice", "cream-roses", "jelly-slices", "slice-table",
-  "drip-roses", "tartlets", "lace-berries", "flake-roses", "slice-blue", "hero-hand",
+  "drip-roses", "tartlets", "tartlets-berries", "lace-berries", "flake-roses", "slice-blue", "hero-hand",
 ];
 const list = ids.map((id) => photos[id]);
 
@@ -56,7 +57,7 @@ export default function Gallery() {
   const current = open !== null ? list[open] : null;
 
   return (
-    <section id="galerie" className="relative bg-cream py-28 lg:py-40">
+    <section id="galerie" className="relative isolate overflow-x-clip bg-cream py-28 lg:py-40">
       <Divider className="absolute inset-x-5 top-0 md:inset-x-10" />
       <div className="mx-auto max-w-[1500px] px-5 md:px-10">
         <div className="flex flex-wrap items-end justify-between gap-8">
@@ -93,7 +94,7 @@ export default function Gallery() {
               className="group relative block overflow-hidden bg-paper text-left"
             >
               <Image
-                src={`/photos/${p.id}.webp`}
+                src={p.src}
                 alt={p.alt}
                 width={p.w}
                 height={p.h}
@@ -118,6 +119,15 @@ export default function Gallery() {
         <span className="text-[0.72rem] tracking-[0.3em] text-cocoa tabular-nums">{String(list.length).padStart(2, "0")}</span>
       </div>
 
+      <Ingredients
+        items={[]}
+        mobile={[
+          { src: "sprinkles", w: 80, x: 4, y: 88.5, rot: 8, o: 0.7 },
+          { src: "blueberry", w: 42, x: 88, y: 91, rot: 10, o: 0.62 },
+        ]}
+        amount={30}
+      />
+
       <dialog
         ref={dialog}
         onClose={() => setOpen(null)}
@@ -129,7 +139,7 @@ export default function Gallery() {
           <figure className="relative grid place-items-center">
             <Image
               key={current.id}
-              src={`/photos/${current.id}.webp`}
+              src={current.src}
               alt={current.alt}
               width={current.w}
               height={current.h}

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { loadGsap } from "@/lib/gsap";
+import Ingredients from "../Ingredients";
 import Reveal from "../Reveal";
 import { ingredientSize } from "@/lib/ingredients";
 import LaceFence from "../LaceFence";
@@ -13,7 +14,7 @@ const steps = [
   { n: "4", title: "Übergabe", text: "Du holst sie ab oder wir vereinbaren die Lieferung. Dann darf gefeiert werden." },
 ];
 
-const stepFruit = ["currant-b", "raspberry-a", "currant-c", "strawberry-e"] as const;
+const stepFruit = ["currant-a", "raspberry-top", "currant-b", "strawberry"] as const;
 
 export default function Process() {
   const path = useRef<SVGPathElement>(null);
@@ -48,7 +49,7 @@ export default function Process() {
   }, []);
 
   return (
-    <section id="atelier" className="relative overflow-x-clip bg-cream py-28 lg:py-40">
+    <section id="atelier" className="relative isolate overflow-x-clip bg-cream py-28 lg:py-40">
       <LaceFence tone="white" />
       <div className="mx-auto max-w-[1500px] px-5 md:px-10">
         <Reveal>
@@ -92,6 +93,15 @@ export default function Process() {
           </ol>
         </div>
       </div>
+      <Ingredients
+        items={[]}
+        mobile={[
+          { src: "raspberry-side", w: 46, x: 88, y: 23, rot: 16, o: 0.68, hideMd: true },
+          { src: "strawberry", w: 46, x: 88, y: 42.5, rot: -14, o: 0.66, hideMd: true },
+          { src: "mint-leaf-b", w: 52, x: 87, y: 61, rot: 20, o: 0.6, hideMd: true },
+        ]}
+        amount={30}
+      />
     </section>
   );
 }

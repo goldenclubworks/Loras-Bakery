@@ -10,7 +10,7 @@ import Ingredients from "../Ingredients";
  */
 const flavors: { photo: PhotoId; name: string; text: string; pos?: string }[] = [
   {
-    photo: "lace-dark-berries",
+    photo: "choc-two-tier",
     name: "Dunkle Schokolade & Beeren",
     text: "Kräftiger Schoko-Biskuit, leichte Creme, dazu Himbeeren, Brombeeren und Heidelbeeren. Der Klassiker.",
   },
@@ -34,7 +34,7 @@ const flavors: { photo: PhotoId; name: string; text: string; pos?: string }[] = 
 
 export default function Flavors() {
   return (
-    <section id="geschmack" className="relative overflow-x-clip bg-paper py-28 lg:py-40">
+    <section id="geschmack" className="relative isolate overflow-x-clip bg-paper py-28 lg:py-40">
       <div className="mx-auto max-w-[1500px] px-5 md:px-10">
         <Reveal>
           <p className="eyebrow">Geschmack</p>
@@ -53,7 +53,7 @@ export default function Flavors() {
               <Reveal as="li" key={f.name} delay={i * 0.07} className={`group ${i % 2 ? "lg:mt-14" : ""}`}>
                 <div className="relative overflow-hidden bg-blush">
                   <Image
-                    src={`/photos/${f.photo}.webp`}
+                    src={p.src}
                     alt={p.alt}
                     width={p.w}
                     height={p.h}
@@ -91,8 +91,15 @@ export default function Flavors() {
       </div>
       <Ingredients
         items={[
-          { src: "currant-b", w: 76, x: 93, y: 12, depth: 0.5, rot: 18, spin: 20, hideSm: true },
-          { src: "raspberry-b", w: 96, x: 72, y: 11, depth: 0.7, rot: -16, spin: 24, hideSm: true },
+          { src: "currant-a", w: 72, x: 93, y: 12, depth: 0.5, rot: 18, spin: 20 },
+          { src: "raspberry-side", w: 92, x: 72, y: 11, depth: 0.7, rot: -16, spin: 24 },
+          { src: "sprinkles", w: 120, x: 53, y: 40, depth: 0.5, rot: 8, spin: 12 },
+        ]}
+        mobile={[
+          { src: "currant-a", w: 40, x: 88, y: 3.75, rot: 18, o: 0.66 },
+          { src: "sprinkles", w: 62, x: 58, y: 2, rot: 8, o: 0.7 },
+          { src: "raspberry-side", w: 46, x: 88, y: 47.75, rot: -16, o: 0.64 },
+          { src: "mint-leaf-b", w: 52, x: 3, y: 96.25, rot: -18, o: 0.6 },
         ]}
         amount={50}
       />

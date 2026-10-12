@@ -1,7 +1,8 @@
 "use client";
 
 import { useInquiry } from "@/lib/store";
-import Drip from "../Drip";
+import Ingredients from "../Ingredients";
+import LaceBand from "../LaceBand";
 import Reveal from "../Reveal";
 
 /**
@@ -51,8 +52,22 @@ function Level({ n, light }: { n: number; light?: boolean }) {
 export default function Pricing() {
   const setTier = useInquiry((s) => s.setTier);
   return (
-    <section id="preise" className="relative bg-plum py-28 text-cream lg:py-40">
-      <Drip />
+    <section id="preise" className="relative isolate overflow-x-clip bg-plum py-28 text-cream lg:py-40">
+      <LaceBand />
+      <Ingredients
+        items={[
+          { src: "raspberry-top", w: 90, x: 6, y: 0.2, depth: 0.2, rot: -12, spin: 10 },
+          { src: "mint-leaf-a", w: 84, x: 13, y: 0.6, depth: 0.2, rot: 28, spin: 10 },
+          { src: "strawberry", w: 96, x: 87, y: 0.1, depth: 0.2, rot: 14, spin: 10 },
+          { src: "currant-big", w: 54, x: 81, y: 1.4, depth: 0.2, rot: -8, spin: 10 },
+        ]}
+        mobile={[
+          { src: "raspberry-top", w: 44, x: 4, y: 0.5, rot: -12, o: 0.78 },
+          { src: "currant-a", w: 36, x: 90, y: 0.7, rot: 20, o: 0.78 },
+        ]}
+        amount={20}
+        above
+      />
       <div className="mx-auto max-w-[1280px] px-5 md:px-10">
         <div className="mx-auto max-w-[760px] text-center">
           <Reveal>

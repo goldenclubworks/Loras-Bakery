@@ -14,16 +14,23 @@ const steps = [
 ];
 
 const ingredients: Ingredient[] = [
-  { src: "raspberry-b", w: 110, x: 37, y: 41, depth: 1, rot: 16, land: true },
-  { src: "strawberry-e", w: 120, x: 56, y: 38, depth: 1.25, rot: -18, land: true, hideSm: true },
-  { src: "currant-b", w: 70, x: 66, y: 47, depth: 0.7, rot: -10, land: true, hideSm: true },
-  { src: "mint-a", w: 120, x: 64, y: 82, depth: 0.8, rot: 12, land: true, hideSm: true },
+  { src: "raspberry-side", w: 100, x: 22.6, y: 35.2, depth: 1, rot: 16, land: true },
+  { src: "strawberry", w: 104, x: 63.4, y: 62.4, depth: 1.25, rot: -18, land: true },
+  { src: "currant-b", w: 56, x: 57.8, y: 71.4, depth: 0.7, rot: -10, land: true },
+  { src: "mint-leaf-a", w: 92, x: 67.4, y: 74.6, depth: 0.8, rot: 12, land: true },
+];
+
+/** Mobil: klein, leicht transparent, gleiten vom Rand herein */
+const ingredientsMobile: Ingredient[] = [
+  { src: "blueberry", w: 44, x: 89, y: 2.5, rot: 12, o: 0.64 },
+  { src: "aril-b", w: 34, x: 3, y: 94, rot: -22, o: 0.68, hideMd: true },
+  { src: "mint-leaf-b", w: 54, x: 87, y: 95, rot: 18, o: 0.58 },
 ];
 
 export default function Anschnitt() {
   const p = photos["slice-blue"];
   return (
-    <section id="anschnitt" className="relative overflow-x-clip bg-sage py-28 text-cream lg:py-44">
+    <section id="anschnitt" className="relative isolate overflow-x-clip bg-sage py-28 text-cream lg:py-44">
       <LaceFence tone="white" />
       <div className="relative mx-auto max-w-[1500px] px-5 md:px-10">
         <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
@@ -61,7 +68,7 @@ export default function Anschnitt() {
             <div aria-hidden className="absolute -inset-[8%] -z-0 rounded-full opacity-70" style={{ background: "radial-gradient(closest-side, rgb(235 196 196 / 0.22), transparent 72%)" }} />
             <div className="clip-up relative overflow-hidden bg-plum shadow-[0_50px_80px_-40px_rgb(0,0,0,0.6)]">
               <Image
-                src="/photos/slice-blue.webp"
+                src={p.src}
                 alt={p.alt}
                 width={p.w}
                 height={p.h}
@@ -86,7 +93,7 @@ export default function Anschnitt() {
                 <InView key={x.id} className={`relative ${x.cls}`} threshold={0.2}>
                   <figure className="pop bg-cream p-1.5 shadow-[0_30px_50px_-28px_rgb(0,0,0,0.65)]" style={{ "--d": `${x.d}s` } as React.CSSProperties}>
                     <Image
-                      src={`/photos/${x.id}.webp`}
+                      src={q.src}
                       alt={q.alt}
                       width={q.w}
                       height={q.h}
@@ -118,7 +125,7 @@ export default function Anschnitt() {
           ))}
         </ol>
       </div>
-      <Ingredients items={ingredients} amount={60} />
+      <Ingredients items={ingredients} mobile={ingredientsMobile} amount={60} container />
     </section>
   );
 }

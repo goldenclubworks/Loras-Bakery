@@ -120,7 +120,7 @@ export default function HeroStage({ children }: { children?: React.ReactNode }) 
         {/* Foto der Torte: sofort da, wird vom 3D-Modell abgelöst */}
         <div className="fade-in absolute inset-x-0 bottom-[5.2%] aspect-square" style={{ "--d": "0.25s" } as React.CSSProperties}>
           <Image
-            src="/photos/cake-cutout.webp"
+            src={photo.src}
             alt={photo.alt}
             fill
             loading="eager"

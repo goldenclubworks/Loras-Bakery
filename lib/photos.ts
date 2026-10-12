@@ -1,9 +1,10 @@
 // Automatisch erzeugt von scripts/build_photos.mjs. Nicht von Hand ändern.
-export type Photo = { id: string; alt: string; w: number; h: number; pos: string; blur: string };
+export type Photo = { id: string; src: string; alt: string; w: number; h: number; pos: string; blur: string };
 
 export const photos = {
   "hero-hand": {
     "id": "hero-hand",
+    "src": "/photos/hero-hand.b864e439.webp",
     "alt": "Hand hält eine Torte im Schokoladen-Spitzenmantel mit Feigen, Physalis und Beeren vor einem mintgrünen Vorhang",
     "w": 1086,
     "h": 1448,
@@ -12,6 +13,7 @@ export const photos = {
   },
   "lace-berries": {
     "id": "lace-berries",
+    "src": "/photos/lace-berries.68103d3c.webp",
     "alt": "Torte im Schokoladen-Spitzenmantel, gefüllt mit Himbeeren, Erdbeeren und Blaubeeren",
     "w": 1086,
     "h": 1448,
@@ -20,6 +22,7 @@ export const photos = {
   },
   "lace-fruit-top": {
     "id": "lace-fruit-top",
+    "src": "/photos/lace-fruit-top.a1fc4172.webp",
     "alt": "Torte mit Schokoladen-Spitze von oben, belegt mit Feigen, Physalis, Erdbeeren und Kiwibeeren",
     "w": 1200,
     "h": 1600,
@@ -28,6 +31,7 @@ export const photos = {
   },
   "lace-dark-berries": {
     "id": "lace-dark-berries",
+    "src": "/photos/lace-dark-berries.cad5b811.webp",
     "alt": "Dunkle Beerentorte mit Schokoladen-Spitze von oben, Brombeeren, Himbeeren und Heidelbeeren",
     "w": 1050,
     "h": 1400,
@@ -36,6 +40,7 @@ export const photos = {
   },
   "tartlets": {
     "id": "tartlets",
+    "src": "/photos/tartlets.34b103f6.webp",
     "alt": "Mürbeteig-Schiffchen mit Sahne und Himbeeren, frisch dekoriert",
     "w": 1050,
     "h": 1400,
@@ -44,6 +49,7 @@ export const photos = {
   },
   "drip-roses": {
     "id": "drip-roses",
+    "src": "/photos/drip-roses.0820ce27.webp",
     "alt": "Zweistöckige Drip-Torte mit Schokoladen-Ganache, Beeren und roten Rosen auf goldverziertem Teller",
     "w": 1086,
     "h": 1160,
@@ -52,6 +58,7 @@ export const photos = {
   },
   "cream-roses": {
     "id": "cream-roses",
+    "src": "/photos/cream-roses.2572a3cb.webp",
     "alt": "Sahnetorte mit roten Rosen, Erdbeeren, Himbeeren, Minze und Schokostreuseln",
     "w": 1086,
     "h": 1448,
@@ -60,14 +67,34 @@ export const photos = {
   },
   "slice-blue": {
     "id": "slice-blue",
-    "alt": "Angeschnittenes Tortenstück mit blauem Biskuit, rosa Creme und Beeren",
-    "w": 1179,
-    "h": 870,
+    "src": "/photos/slice-blue.74eb5aea.webp",
+    "alt": "Angeschnittenes Stück blaue Biskuittorte mit rosa Creme, Heidelbeeren, Granatapfelkernen und einer Himbeere, daneben eine Gabel auf einem weißen Teller",
+    "w": 1122,
+    "h": 1001,
     "pos": "50% 45%",
-    "blur": "data:image/jpeg;base64,/9j/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCAAKAA4DASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABQQG/8QAHRAAAgIDAQEBAAAAAAAAAAAAAQIDEQAEBSExMv/EABUBAQEAAAAAAAAAAAAAAAAAAAID/8QAFhEBAQEAAAAAAAAAAAAAAAAAAAEx/9oADAMBAAIRAxEAPwCdeQY9mKJ1t3qhfhxHocSSeNSYYtZwatT+hWL8VFk42s8ih2EfjMLOZntTyrMFWVwL+BjkDmv/2Q=="
+    "blur": "data:image/jpeg;base64,/9j/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCAAMAA4DASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABQMG/8QAHxAAAgEEAgMAAAAAAAAAAAAAAQIDAAQRIQUSEyMx/8QAFQEBAQAAAAAAAAAAAAAAAAAAAQL/xAAXEQEAAwAAAAAAAAAAAAAAAAAAARIh/9oADAMBAAIRAxEAPwA5LP36lxGfmBmmUsrC6wIllDKN5FTuY1j57wpqMDPUarQWAToZFjVWOiRUmbY//9k="
+  },
+  "choc-two-tier": {
+    "id": "choc-two-tier",
+    "src": "/photos/choc-two-tier.49fc3c33.webp",
+    "alt": "Zweistöckige Torte in Schokoladen-Spitze mit Beeren und Minze, gedeckter Tisch mit Kerzen und Rosen im Hintergrund",
+    "w": 892,
+    "h": 1203,
+    "pos": "50% 55%",
+    "blur": "data:image/jpeg;base64,/9j/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCAATAA4DASIAAhEBAxEB/8QAFwAAAwEAAAAAAAAAAAAAAAAAAAQFAf/EACMQAAIBAwMEAwAAAAAAAAAAAAECAwAEEQUSIRMxQVEiMqH/xAAWAQEBAQAAAAAAAAAAAAAAAAAEAAH/xAAYEQADAQEAAAAAAAAAAAAAAAAAARExIf/aAAwDAQACEQMRAD8ARuRLc2bCZlMuAwYnnOO1JWmnXFzGeqoV1JJ3ec+fyskbZdOuZAD9cdjVnQ4Jbh5GY4QAcv79UNcwZFBHUFEMu6L4Ec8HFUwS8VsWJJaMk89zkUUVPDGf/9k="
+  },
+  "tartlets-berries": {
+    "id": "tartlets-berries",
+    "src": "/photos/tartlets-berries.38324958.webp",
+    "alt": "Mürbeteig-Schiffchen mit Sahnetupfen, Himbeeren, Brombeeren, Silberperlen und Schokoladenblättern auf einem hellen Teller",
+    "w": 1120,
+    "h": 1400,
+    "pos": "50% 50%",
+    "blur": "data:image/jpeg;base64,/9j/2wBDAA4KCw0LCQ4NDA0QDw4RFiQXFhQUFiwgIRokNC43NjMuMjI6QVNGOj1OPjIySGJJTlZYXV5dOEVmbWVabFNbXVn/2wBDAQ8QEBYTFioXFypZOzI7WVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVlZWVn/wAARCAASAA4DASIAAhEBAxEB/8QAGAAAAwEBAAAAAAAAAAAAAAAAAAMGBAX/xAAkEAACAQIGAQUAAAAAAAAAAAABAgMAEQQFEiExMmEiQVFxgf/EABUBAQEAAAAAAAAAAAAAAAAAAAME/8QAGBEBAAMBAAAAAAAAAAAAAAAAAAECEhH/2gAMAwEAAhEDEQA/AMQy0xyMrzBNA3uOT98U1cA8ljGzOtu6cE08tHKjOJTLHcBb+pSPPxXRy7BqCZp2jBcbBGso8UGrdU5qk5gFxJ0jTv7VQZZ0/KKKQUP/2Q=="
   },
   "slice-blue-close": {
     "id": "slice-blue-close",
+    "src": "/photos/slice-blue-close.b168b394.webp",
     "alt": "Stück blaue Biskuittorte mit Heidelbeeren, Himbeere und Minze auf einem Teller mit blau gezeichneter Taube, daneben Beeren und Krümel",
     "w": 1120,
     "h": 1400,
@@ -76,6 +103,7 @@ export const photos = {
   },
   "easter-berries": {
     "id": "easter-berries",
+    "src": "/photos/easter-berries.bbb94639.webp",
     "alt": "Torte mit Schokoladen-Spitze, Beerenringen aus Erdbeeren, Himbeeren und Heidelbeeren und einem Schokoladenhasen im Gras-Nest",
     "w": 1199,
     "h": 1312,
@@ -84,6 +112,7 @@ export const photos = {
   },
   "glaze-roses": {
     "id": "glaze-roses",
+    "src": "/photos/glaze-roses.d23cd30a.webp",
     "alt": "Torte mit glänzender dunkler Glasur, rosa Cremerosen und goldener Schrift",
     "w": 1041,
     "h": 1400,
@@ -92,6 +121,7 @@ export const photos = {
   },
   "mirror-slice": {
     "id": "mirror-slice",
+    "src": "/photos/mirror-slice.2d1cc02c.webp",
     "alt": "Tortenstück mit roter Spiegelglasur und einer Erdbeere auf einem blauen Teller",
     "w": 936,
     "h": 1400,
@@ -100,6 +130,7 @@ export const photos = {
   },
   "slice-table": {
     "id": "slice-table",
+    "src": "/photos/slice-table.831ff7a1.webp",
     "alt": "Stück blaue Biskuittorte mit Beeren auf einem Teller mit Taube, gedeckter Tisch mit Stickerei-Tischdecke",
     "w": 1096,
     "h": 1436,
@@ -108,6 +139,7 @@ export const photos = {
   },
   "tart-dove": {
     "id": "tart-dove",
+    "src": "/photos/tart-dove.f978b4e1.webp",
     "alt": "Beeren-Tarte mit Schokoladen-Spitze auf einem Teller mit blau gezeichneter Taube",
     "w": 738,
     "h": 982,
@@ -116,6 +148,7 @@ export const photos = {
   },
   "lace-tights": {
     "id": "lace-tights",
+    "src": "/photos/lace-tights.07f60d5a.webp",
     "alt": "Frucht-Torte im Schokoladen-Spitzenmantel auf festlich gedecktem Tisch, darüber Beine in weißer Spitzen-Strumpfhose",
     "w": 1086,
     "h": 1448,
@@ -124,6 +157,7 @@ export const photos = {
   },
   "cupcake-shoes": {
     "id": "cupcake-shoes",
+    "src": "/photos/cupcake-shoes.666f1873.webp",
     "alt": "Zwei Cupcakes mit Keks-Absatzschuhen auf einem silbernen Tortenständer vor grünem Hintergrund",
     "w": 933,
     "h": 1400,
@@ -132,6 +166,7 @@ export const photos = {
   },
   "jelly-slices": {
     "id": "jelly-slices",
+    "src": "/photos/jelly-slices.39f08e64.webp",
     "alt": "Drei Stücke Obst-Gelee-Torte mit Mandarinen auf silbernem Tortenständer vor grünem Hintergrund",
     "w": 933,
     "h": 1400,
@@ -140,6 +175,7 @@ export const photos = {
   },
   "flake-roses": {
     "id": "flake-roses",
+    "src": "/photos/flake-roses.791f6cf7.webp",
     "alt": "Torte mit Schokoladen-Raspeln und weißen Fondant-Rosen auf Spitzendeckchen",
     "w": 1050,
     "h": 1400,
@@ -148,6 +184,7 @@ export const photos = {
   },
   "lora": {
     "id": "lora",
+    "src": "/photos/lora.a06793ee.webp",
     "alt": "Lora, die Konditorin hinter Loras Bakery, in weißer Bluse",
     "w": 1100,
     "h": 1100,
@@ -156,6 +193,7 @@ export const photos = {
   },
   "cake-cutout": {
     "id": "cake-cutout",
+    "src": "/photos/cake-cutout.78681cac.webp",
     "alt": "Zweistöckige Torte in handgespritzter Schokoladen-Spitze mit frischen Beeren und Minze",
     "w": 1100,
     "h": 1008,

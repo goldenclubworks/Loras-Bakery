@@ -49,12 +49,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="de" suppressHydrationWarning className={`${display.variable} ${sans.variable} ${script.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col">
-        {/* vor dem ersten Bild: markiert den ersten Besuch der Sitzung (Auftakt-Vorhang) */}
+        {/* vor dem ersten Bild: Vorhang (Preloader) bei jedem Laden der Startseite, auch mobil; man landet immer oben im Hero */}
         <Script
           id="lb-pre"
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
-            __html: `try{var d=document.documentElement;if(!sessionStorage.getItem('lb-pre')){sessionStorage.setItem('lb-pre','1');d.classList.add('preloading','pre-lock');setTimeout(function(){d.classList.remove('pre-lock')},2000)}}catch(e){}`,
+            __html: `try{var d=document.documentElement;if('scrollRestoration' in history)history.scrollRestoration='manual';if(location.pathname==='/'){d.classList.add('preloading');if(!location.hash)window.scrollTo(0,0);var stop=function(e){e.preventDefault()};var keys={32:1,33:1,34:1,35:1,36:1,38:1,40:1};var kd=function(e){if(keys[e.keyCode])e.preventDefault()};window.addEventListener('wheel',stop,{passive:false});window.addEventListener('touchmove',stop,{passive:false});window.addEventListener('keydown',kd);setTimeout(function(){window.removeEventListener('wheel',stop);window.removeEventListener('touchmove',stop);window.removeEventListener('keydown',kd)},2100)}}catch(e){}`,
           }}
         />
         {children}

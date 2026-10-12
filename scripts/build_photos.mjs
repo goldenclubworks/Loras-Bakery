@@ -1,5 +1,6 @@
-// Referenzfotos (assets/refs) -> public/photos/*.webp + lib/photos.ts
+// Referenzfotos (assets/refs) -> public/photos/<id>.<hash>.webp + lib/photos.ts (mit src je Foto)
 // Aufruf: node scripts/build_photos.mjs
+import { createHash } from "node:crypto";
 import { createRequire } from "node:module";
 import fs from "node:fs";
 import path from "node:path";
@@ -20,7 +21,9 @@ const photos = [
   ["tartlets", "IMG_5705.jpg", "Mürbeteig-Schiffchen mit Sahne und Himbeeren, frisch dekoriert", 1400, "50% 50%"],
   ["drip-roses", "ref-4.jpg", "Zweistöckige Drip-Torte mit Schokoladen-Ganache, Beeren und roten Rosen auf goldverziertem Teller", 1400, "50% 45%"],
   ["cream-roses", "ref-9.webp", "Sahnetorte mit roten Rosen, Erdbeeren, Himbeeren, Minze und Schokostreuseln", 1600, "50% 40%"],
-  ["slice-blue", "ref-10.jpg", "Angeschnittenes Tortenstück mit blauem Biskuit, rosa Creme und Beeren", 1400, "50% 45%", false, "warm"],
+  ["slice-blue", "user/p-blue-slice.jpg", "Angeschnittenes Stück blaue Biskuittorte mit rosa Creme, Heidelbeeren, Granatapfelkernen und einer Himbeere, daneben eine Gabel auf einem weißen Teller", 1400, "50% 45%"],
+  ["choc-two-tier", "user/p-choc-two-tier.jpg", "Zweistöckige Torte in Schokoladen-Spitze mit Beeren und Minze, gedeckter Tisch mit Kerzen und Rosen im Hintergrund", 1400, "50% 55%"],
+  ["tartlets-berries", "user/p-tartlets.png", "Mürbeteig-Schiffchen mit Sahnetupfen, Himbeeren, Brombeeren, Silberperlen und Schokoladenblättern auf einem hellen Teller", 1400, "50% 50%"],
   ["slice-blue-close", "ref-17.webp", "Stück blaue Biskuittorte mit Heidelbeeren, Himbeere und Minze auf einem Teller mit blau gezeichneter Taube, daneben Beeren und Krümel", 1400, "50% 45%"],
   ["easter-berries", "ref-19.webp", "Torte mit Schokoladen-Spitze, Beerenringen aus Erdbeeren, Himbeeren und Heidelbeeren und einem Schokoladenhasen im Gras-Nest", 1400, "50% 45%"],
   ["glaze-roses", "ref-21.jpg", "Torte mit glänzender dunkler Glasur, rosa Cremerosen und goldener Schrift", 1400, "50% 40%"],
@@ -51,14 +54,19 @@ for (const [id, src, alt, long, pos, alpha, grade] of photos) {
   const meta = await sharp(await img.clone().toBuffer()).metadata();
   const resized = img.clone().resize({ width: long, height: long, fit: "inside", withoutEnlargement: true });
   const buf = await resized.webp({ quality: alpha ? 88 : 84, alphaQuality: 92, effort: 5 }).toBuffer({ resolveWithObject: true });
-  fs.writeFileSync(path.join(out, `${id}.webp`), buf.data);
+  // Dateiname mit Inhalts-Hash: ein ausgetauschtes Bild bekommt so immer eine neue URL (der Bild-Optimierer von Next.js
+  // behält optimierte Varianten sonst Stunden lang und würde unter gleichem Namen das alte Bild weiter ausliefern).
+  const hash = createHash("sha1").update(buf.data).digest("hex").slice(0, 8);
+  const outName = `${id}.${hash}.webp`;
+  for (const old of fs.readdirSync(out)) if (old === `${id}.webp` || (old.startsWith(`${id}.`) && /^[0-9a-f]{8}\.webp$/.test(old.slice(id.length + 1)) && old !== outName)) fs.unlinkSync(path.join(out, old));
+  fs.writeFileSync(path.join(out, outName), buf.data);
   const blur = alpha ? null : await sharp(buf.data).resize(14).blur(0.6).jpeg({ quality: 55 }).toBuffer();
-  manifest[id] = { id, alt, w: buf.info.width, h: buf.info.height, pos, blur: blur ? `data:image/jpeg;base64,${blur.toString("base64")}` : "" };
+  manifest[id] = { id, src: `/photos/${outName}`, alt, w: buf.info.width, h: buf.info.height, pos, blur: blur ? `data:image/jpeg;base64,${blur.toString("base64")}` : "" };
   console.log(id.padEnd(20), `${buf.info.width}x${buf.info.height}`, `${Math.round(buf.data.length / 1024)} kB`);
 }
 
 const ts = `// Automatisch erzeugt von scripts/build_photos.mjs. Nicht von Hand ändern.
-export type Photo = { id: string; alt: string; w: number; h: number; pos: string; blur: string };
+export type Photo = { id: string; src: string; alt: string; w: number; h: number; pos: string; blur: string };
 
 export const photos = ${JSON.stringify(manifest, null, 2)} as const satisfies Record<string, Photo>;
 

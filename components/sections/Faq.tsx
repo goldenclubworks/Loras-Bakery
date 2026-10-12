@@ -49,7 +49,7 @@ export default function Faq() {
                   {f.q}
                   <span className="grid h-10 w-10 shrink-0 place-items-center transition-transform duration-500 [transition-timing-function:var(--ease-out)] group-open:rotate-[135deg]">
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src="/ingredients/currant-b.webp" alt="" width={72} height={70} className="h-8 w-8" draggable={false} />
+                    <img src="/ingredients/currant-big.webp" alt="" width={300} height={299} loading="lazy" decoding="async" className="h-8 w-8" draggable={false} />
                   </span>
                 </summary>
                 <p className="mt-4 max-w-[60ch] text-cocoa">{f.a}</p>

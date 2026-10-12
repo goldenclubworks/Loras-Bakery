@@ -14,16 +14,23 @@ const facts = [
 ];
 
 const ingredients: Ingredient[] = [
-  { src: "raspberry-a", w: 100, x: 37, y: 6, depth: 1.0, rot: 20, spin: 44, hideSm: true },
-  { src: "strawberry-e", w: 116, x: 38, y: 82, depth: 0.8, rot: -14, spin: 22, hideSm: true },
-  { src: "currant-c", w: 70, x: 95, y: 3, depth: 0.6, rot: 24, spin: 18, hideSm: true },
-  { src: "aril-a", w: 70, x: 44, y: 90, depth: 0.7, rot: 8, spin: 16, hideSm: true },
+  { src: "raspberry-side", w: 100, x: 37, y: 6, depth: 1.0, rot: 20, spin: 44 },
+  { src: "strawberry", w: 104, x: 38, y: 82, depth: 0.8, rot: -14, spin: 22 },
+  { src: "currant-a", w: 60, x: 95, y: 3, depth: 0.6, rot: 24, spin: 18 },
+  { src: "aril-a", w: 60, x: 44, y: 90, depth: 0.7, rot: 8, spin: 16 },
+];
+
+/** Mobil: klein, leicht transparent, gleiten vom Rand herein */
+const ingredientsMobile: Ingredient[] = [
+  { src: "raspberry-side", w: 50, x: 89, y: 46.5, rot: 16, o: 0.66 },
+  { src: "blueberry", w: 46, x: 2, y: 94.5, rot: -10, o: 0.62 },
+  { src: "mint-leaf-a", w: 52, x: 88, y: 93.5, rot: 24, o: 0.6 },
 ];
 
 export default function Handschrift() {
   const p = photos["lace-berries"];
   return (
-    <section id="handschrift" className="relative overflow-x-clip bg-cream py-28 lg:py-44">
+    <section id="handschrift" className="relative isolate overflow-x-clip bg-cream py-28 lg:py-44">
       <div className="relative mx-auto grid max-w-[1500px] items-center gap-x-10 gap-y-20 px-5 md:px-10 lg:grid-cols-12">
         <div className="relative lg:col-span-5">
           <Parallax speed={0.03}>
@@ -31,7 +38,7 @@ export default function Handschrift() {
               <div aria-hidden className="absolute -inset-3 -translate-x-3 -translate-y-3 border border-rose/60" />
               <div className="clip-up relative aspect-[3/4] overflow-hidden bg-blush">
                 <Image
-                  src="/photos/lace-berries.webp"
+                  src={p.src}
                   alt={p.alt}
                   width={p.w}
                   height={p.h}
@@ -83,7 +90,7 @@ export default function Handschrift() {
           </ul>
         </div>
       </div>
-      <Ingredients items={ingredients} amount={60} />
+      <Ingredients items={ingredients} mobile={ingredientsMobile} amount={60} />
     </section>
   );
 }

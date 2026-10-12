@@ -20,15 +20,22 @@ const pillars = [
 ];
 
 const ingredients: Ingredient[] = [
-  { src: "strawberry-e", w: 120, x: 47, y: 90, depth: 0.8, rot: -16, spin: 26, hideSm: true },
-  { src: "raspberry-b", w: 96, x: 2, y: 8, depth: 1.1, rot: 22, spin: 40, hideSm: true },
-  { src: "mint-a", w: 120, x: 84, y: 92, depth: 0.6, rot: -10, spin: 16, hideSm: true },
+  { src: "strawberry", w: 112, x: 47, y: 90, depth: 0.8, rot: -16, spin: 26 },
+  { src: "raspberry-top", w: 92, x: 2, y: 8, depth: 1.1, rot: 22, spin: 40 },
+  { src: "mint-sprig", w: 130, x: 84, y: 92, depth: 0.6, rot: -10, spin: 16 },
+];
+
+/** Mobil: klein, leicht transparent, gleiten vom Rand herein */
+const ingredientsMobile: Ingredient[] = [
+  { src: "raspberry-top", w: 48, x: 4, y: 2, rot: -12, o: 0.66 },
+  { src: "mint-leaf-a", w: 50, x: 87, y: 2.4, rot: 24, o: 0.6 },
+  { src: "currant-b", w: 38, x: 90, y: 94.2, rot: 18, o: 0.66 },
 ];
 
 export default function Lora() {
   const p = photos["lora"];
   return (
-    <section id="lora" className="relative overflow-x-clip bg-blush/70 py-28 lg:py-44">
+    <section id="lora" className="relative isolate overflow-x-clip bg-blush/70 py-28 lg:py-44">
       <LaceFence tone="choc" />
       <div className="relative mx-auto grid max-w-[1500px] items-center gap-16 px-5 md:px-10 lg:grid-cols-12">
         <div className="lg:col-span-5">
@@ -40,7 +47,7 @@ export default function Lora() {
                 style={{ background: "radial-gradient(70% 55% at 50% 30%, #f7efe6 0%, #f1d5cf 55%, #e3a9a6 100%)" }}
               >
                 <Image
-                  src="/photos/lora.webp"
+                  src={p.src}
                   alt={p.alt}
                   width={p.w}
                   height={p.h}
@@ -98,7 +105,7 @@ export default function Lora() {
           </Reveal>
         </div>
       </div>
-      <Ingredients items={ingredients} amount={60} />
+      <Ingredients items={ingredients} mobile={ingredientsMobile} amount={60} />
     </section>
   );
 }

@@ -2,31 +2,43 @@ import type { CSSProperties } from "react";
 import Image from "next/image";
 import HeroStage from "../HeroStage";
 import Ingredients, { type Ingredient } from "../Ingredients";
+import LaceBand from "../LaceBand";
 import Parallax from "../Parallax";
-import Title3D from "../Title3D";
+import HeroTitle from "../HeroTitle";
 import { photos } from "@/lib/photos";
 
 const d = (s: number) => ({ "--d": `${s}s` }) as CSSProperties;
 
 const ingredients: Ingredient[] = [
-  { src: "raspberry-b", w: 110, x: 46, y: 9, depth: 0.9, rot: -14, spin: 36, hideSm: true },
-  { src: "strawberry-e", w: 110, x: 90, y: 11, depth: 0.7, rot: 18, spin: 24 },
-  { src: "currant-b", w: 84, x: 38, y: 90, depth: 0.5, rot: -8, spin: 14, hideSm: true },
-  { src: "mint-a", w: 120, x: 86, y: 80, depth: 0.8, rot: 14, spin: 20, hideSm: true },
+  { src: "raspberry-top", w: 104, x: 47, y: 9, depth: 0.9, rot: -14, spin: 36 },
+  { src: "strawberry", w: 100, x: 90, y: 11, depth: 0.7, rot: 18, spin: 24 },
+  { src: "currant-big", w: 66, x: 38, y: 97, depth: 0.5, rot: -8, spin: 14 },
+  { src: "mint-leaf-b", w: 104, x: 86, y: 80, depth: 0.8, rot: 14, spin: 20 },
+];
+
+/** Mobil: klein, leicht transparent, gleiten vom Rand herein */
+const ingredientsMobile: Ingredient[] = [
+  { src: "raspberry-top", w: 52, x: 88, y: 17, rot: 14, o: 0.72 },
+  { src: "currant-a", w: 44, x: 90, y: 46, rot: 22, o: 0.68 },
+  { src: "mint-leaf-b", w: 62, x: 4, y: 7.75, rot: -18, o: 0.7 },
 ];
 
 export default function Hero() {
   const hand = photos["hero-hand"];
   return (
-    <section id="top" className="relative overflow-x-clip">
+    <section id="top" className="relative isolate overflow-x-clip">
       <div
         aria-hidden
         className="absolute inset-0 -z-10"
         style={{ background: "radial-gradient(60% 50% at 82% 32%, rgb(235 196 196 / 0.6), transparent 70%), radial-gradient(40% 40% at 4% 90%, rgb(92 184 177 / 0.12), transparent 70%), var(--cream)" }}
       />
-      <div className="mx-auto grid min-h-[100svh] max-w-[1500px] items-center gap-x-6 gap-y-24 px-5 pb-24 pt-32 md:px-10 lg:grid-cols-12 lg:pb-16 lg:pt-28">
+      {/* nur Mobil: rosa Verlauf mit einem Band echter Spitze unter dem Header */}
+      <div aria-hidden className="hero-top lg:hidden">
+        <LaceBand eager className="hero-ribbon" />
+      </div>
+      <div className="mx-auto grid min-h-[100svh] max-w-[1500px] items-center gap-x-6 gap-y-24 px-5 pb-24 pt-[12.6rem] md:px-10 md:pt-[13.4rem] lg:grid-cols-12 lg:pb-16 lg:pt-28">
         <div className="relative z-10 lg:col-span-7">
-          <Title3D />
+          <HeroTitle />
 
           <p className="slide-in mt-16 text-[0.74rem] uppercase tracking-[0.42em] text-choc md:mt-20" style={d(1.0)}>
             Handmade Kuchen &amp; Torten
@@ -54,7 +66,7 @@ export default function Hero() {
             <HeroStage>
               <figure className="fade-in absolute -bottom-14 -left-3 z-10 w-[33%] rotate-[-4deg] bg-cream p-1.5 shadow-[var(--shadow-soft)] sm:-left-10" style={d(1.7)}>
                 <Image
-                  src="/photos/hero-hand.webp"
+                  src={hand.src}
                   alt={hand.alt}
                   width={hand.w}
                   height={hand.h}
@@ -69,7 +81,7 @@ export default function Hero() {
           </Parallax>
         </div>
       </div>
-      <Ingredients items={ingredients} amount={70} className="fade-in" style={d(2.6)} />
+      <Ingredients items={ingredients} mobile={ingredientsMobile} amount={70} className="fade-in" style={d(2.6)} eager />
     </section>
   );
 }

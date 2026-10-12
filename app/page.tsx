@@ -1,3 +1,4 @@
+import ReactDOM from "react-dom";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Preloader from "@/components/Preloader";
@@ -13,6 +14,8 @@ import Pricing from "@/components/sections/Pricing";
 import Process from "@/components/sections/Process";
 
 export default function Home() {
+  // Das Spitzenband liegt im ersten Bildschirm (Hero): früh laden, nicht erst nach dem CSS entdecken
+  ReactDOM.preload("/lace/lace-band.avif", { as: "image", type: "image/avif", fetchPriority: "high" });
   return (
     <>
       <Preloader />
