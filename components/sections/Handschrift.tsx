@@ -15,16 +15,16 @@ const facts = [
 
 const ingredients: Ingredient[] = [
   { src: "raspberry-side", w: 100, x: 37, y: 6, depth: 1.0, rot: 20, spin: 44 },
-  { src: "strawberry", w: 104, x: 38, y: 82, depth: 0.8, rot: -14, spin: 22 },
+  { src: "strawberry", w: 104, x: 38, y: 79.4, depth: 0.4, rot: -14, spin: 22 },
   { src: "currant-a", w: 60, x: 95, y: 3, depth: 0.6, rot: 24, spin: 18 },
-  { src: "aril-a", w: 60, x: 44, y: 90, depth: 0.7, rot: 8, spin: 16 },
+  { src: "aril-a", w: 60, x: 31, y: 83.5, depth: 0.7, rot: 8, spin: 16 },
 ];
 
 /** Mobil: klein, leicht transparent, gleiten vom Rand herein */
 const ingredientsMobile: Ingredient[] = [
   { src: "raspberry-side", w: 50, x: 89, y: 46.5, rot: 16, o: 0.66 },
-  { src: "blueberry", w: 46, x: 2, y: 94.5, rot: -10, o: 0.62 },
-  { src: "mint-leaf-a", w: 52, x: 88, y: 93.5, rot: 24, o: 0.6 },
+  { src: "blueberry", w: 46, x: 2, y: 89.5, rot: -10, o: 0.62 },
+  { src: "mint-leaf-a", w: 52, x: 88, y: 41, rot: 24, o: 0.6 },
 ];
 
 export default function Handschrift() {

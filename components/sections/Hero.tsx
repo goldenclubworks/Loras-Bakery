@@ -12,7 +12,7 @@ const d = (s: number) => ({ "--d": `${s}s` }) as CSSProperties;
 const ingredients: Ingredient[] = [
   { src: "raspberry-top", w: 104, x: 47, y: 9, depth: 0.9, rot: -14, spin: 36 },
   { src: "strawberry", w: 100, x: 90, y: 11, depth: 0.7, rot: 18, spin: 24 },
-  { src: "currant-big", w: 66, x: 38, y: 97, depth: 0.5, rot: -8, spin: 14 },
+  { src: "currant-big", w: 66, x: 49, y: 77.25, depth: 0.5, rot: -8, spin: 14 },
   { src: "mint-leaf-b", w: 104, x: 86, y: 80, depth: 0.8, rot: 14, spin: 20 },
 ];
 
@@ -20,7 +20,7 @@ const ingredients: Ingredient[] = [
 const ingredientsMobile: Ingredient[] = [
   { src: "raspberry-top", w: 52, x: 88, y: 17, rot: 14, o: 0.72 },
   { src: "currant-a", w: 44, x: 90, y: 46, rot: 22, o: 0.68 },
-  { src: "mint-leaf-b", w: 62, x: 4, y: 7.75, rot: -18, o: 0.7 },
+  { src: "mint-leaf-b", w: 62, x: 4, y: 7.75, rot: -18, o: 0.7, hideMd: true },
 ];
 
 export default function Hero() {

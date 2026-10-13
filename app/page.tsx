@@ -24,13 +24,13 @@ export default function Home() {
         <Hero />
         <Handschrift />
         <Lora />
-        <Anschnitt />
+        <Faq />
+        <Pricing />
         <Process />
         <Gallery />
         <Flavors />
-        <Pricing />
+        <Anschnitt />
         <InquiryLazy />
-        <Faq />
       </main>
       <Footer />
     </>

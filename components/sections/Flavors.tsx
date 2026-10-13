@@ -99,7 +99,7 @@ export default function Flavors() {
           { src: "currant-a", w: 40, x: 88, y: 3.75, rot: 18, o: 0.66 },
           { src: "sprinkles", w: 62, x: 58, y: 2, rot: 8, o: 0.7 },
           { src: "raspberry-side", w: 46, x: 88, y: 47.75, rot: -16, o: 0.64 },
-          { src: "mint-leaf-b", w: 52, x: 3, y: 96.25, rot: -18, o: 0.6 },
+          { src: "mint-leaf-b", w: 52, x: 3, y: 1, rot: -18, o: 0.6 },
         ]}
         amount={50}
       />

@@ -22,8 +22,9 @@ lädt erst nach der ersten Eingabe, Foto als Rückfall).
   entfernt helle Randsäume, verkleinert auf 300 px (angezeigt werden höchstens 130 px) und schreibt `public/ingredients/*.webp`
   und `lib/ingredients.ts`. Das Skript bricht ab, wenn ein Teil an den Rand stößt (angeschnitten). Kein Schatten, keine Kante.
 - Desktop (ab 1024 px): Früchte driften mit Tiefe und Drehung, im Anschnitt „landen" sie am Foto. Mobil: kleine, leicht
-  transparente Früchte gleiten vom Rand herein und wieder hinaus (`mobile`-Liste je Abschnitt). Positionen wurden automatisch gegen Text
-  und Bilder geprüft (360 bis 430 px, 1024 bis 1920 px).
+  transparente Früchte gleiten vom Rand herein und wieder hinaus (`mobile`-Liste je Abschnitt). Positionen wurden automatisch gegen Text,
+  Bilder, Abschnittskanten und die Spitzenkanten der Nachbarabschnitte geprüft (360 bis 768 px, 1024 bis 2560 px): keine Frucht wird abgeschnitten.
+- Reihenfolge der Seite: Hero, Handschrift, Lora, Gut zu wissen (FAQ), Preisorientierung, Atelier, Galerie, Geschmack, Anschnitt, Anfrage, Footer.
 - Die Ebene ist seitlich begrenzt (`overflow-x: clip`), nichts kann die Seite verbreitern.
 
 ## Bilder

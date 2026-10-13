@@ -22,8 +22,8 @@ const Y_TOP = 0.7467 * U; // Scheitel des Bogens
 const DIST = 14;
 const CURTAIN_Z = -2.8;
 const K = (DIST - CURTAIN_Z) / DIST; // Perspektiv-Ausgleich für die Tiefe des Vorhangs
-const CAKE_Y = -1.5;
-const CAKE_SCALE = 2.0; // die Torte füllt rund 80 % der Bogenbreite, der Teller ragt nicht mehr aus der Leinwand // Torte steht etwa 0,16 Bogenbreiten über dem Bogenfuß
+const CAKE_Y = -0.85; // Torte samt Teller steht ganz im Bogen (im weißen Rahmen), nichts ragt über den Bogenfuß hinaus
+const CAKE_SCALE = 2.0; // die Torte füllt rund 80 % der Bogenbreite
 
 function Stage({ url, onReady, mobile }: { url: string | null; onReady: () => void; mobile: boolean }) {
   const tilt = useRef<THREE.Group>(null);

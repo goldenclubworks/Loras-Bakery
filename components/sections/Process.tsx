@@ -18,24 +18,63 @@ const stepFruit = ["currant-a", "raspberry-top", "currant-b", "strawberry"] as c
 
 export default function Process() {
   const path = useRef<SVGPathElement>(null);
+  const bag = useRef<HTMLImageElement>(null);
   useEffect(() => {
     const p = path.current;
-    if (!p) return;
+    const b = bag.current;
+    const svg = p?.ownerSVGElement;
+    if (!p || !svg) return;
     const len = p.getTotalLength();
-    p.style.strokeDasharray = `${len}`;
+    // Die Linie ist nicht skalierend (vectorEffect), Strichlängen zählen daher in Bildschirm-Pixeln: Länge der gestreckten Kurve messen
+    let screenLen = len;
+    const measure = () => {
+      const r = svg.getBoundingClientRect();
+      if (!r.width) return;
+      let sum = 0;
+      let prev = p.getPointAtLength(0);
+      for (let i = 1; i <= 240; i++) {
+        const q = p.getPointAtLength((len * i) / 240);
+        sum += Math.hypot(((q.x - prev.x) / 1000) * r.width, ((q.y - prev.y) / 80) * r.height);
+        prev = q;
+      }
+      screenLen = sum;
+    };
+    let t = 0;
+    // Linie bis t zeichnen; die Spitze der Spritztüte sitzt am Ende, die Tüte kippt und wippt dabei leicht
+    const render = (v: number) => {
+      t = v;
+      p.style.strokeDasharray = `${screenLen}`;
+      p.style.strokeDashoffset = `${screenLen * (1 - v)}`;
+      const r = svg.getBoundingClientRect();
+      if (!b || !r.width) return;
+      const a = p.getPointAtLength(len * v);
+      const c = p.getPointAtLength(Math.min(len, len * v + 4));
+      const slope = Math.atan2(((c.y - a.y) / 80) * r.height, ((c.x - a.x) / 1000) * r.width) * (180 / Math.PI);
+      const rot = -14 + slope * 0.6 + Math.sin(v * 46) * 4.5;
+      const lift = Math.abs(Math.sin(v * 23)) * -3;
+      b.style.transform = `translate(${((a.x / 1000) * r.width).toFixed(1)}px, ${((a.y / 80) * r.height + lift).toFixed(1)}px) rotate(${rot.toFixed(1)}deg)`;
+    };
+    measure();
+    const onResize = () => {
+      measure();
+      render(t);
+    };
+    window.addEventListener("resize", onResize);
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      p.style.strokeDashoffset = "0";
-      return;
+      render(1);
+      return () => window.removeEventListener("resize", onResize);
     }
-    p.style.strokeDashoffset = `${len}`;
+    render(0);
     let dead = false;
     let undo: (() => void) | undefined;
     loadGsap().then(({ gsap }) => {
       if (dead) return;
-      const tween = gsap.to(p, {
-        strokeDashoffset: 0,
+      const prog = { v: 0 };
+      const tween = gsap.to(prog, {
+        v: 1,
         ease: "none",
         scrollTrigger: { trigger: p.closest("section"), start: "top 70%", end: "bottom 65%", scrub: 0.6 },
+        onUpdate: () => render(prog.v),
       });
       undo = () => {
         tween.scrollTrigger?.kill();
@@ -44,6 +83,7 @@ export default function Process() {
     });
     return () => {
       dead = true;
+      window.removeEventListener("resize", onResize);
       undo?.();
     };
   }, []);
@@ -61,13 +101,8 @@ export default function Process() {
 
         <div className="relative mt-20">
           {/* the hand-drawn thread that connects the steps */}
-          <svg
-            aria-hidden
-            className="pointer-events-none absolute -top-3 left-0 hidden h-20 w-full md:block"
-            viewBox="0 0 1000 80"
-            preserveAspectRatio="none"
-            fill="none"
-          >
+          <div aria-hidden className="pointer-events-none absolute -top-3 left-0 hidden h-20 w-full md:block">
+          <svg className="absolute inset-0 h-full w-full" viewBox="0 0 1000 80" preserveAspectRatio="none" fill="none">
             <path
               ref={path}
               d="M20 40 C 90 4, 140 76, 210 40 S 330 6, 400 42 S 540 76, 610 40 S 740 4, 800 40 S 920 74, 980 40"
@@ -77,6 +112,19 @@ export default function Process() {
               vectorEffect="non-scaling-stroke"
             />
           </svg>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            ref={bag}
+            src="/piping-bag.webp"
+            alt=""
+            width={360}
+            height={386}
+            decoding="async"
+            draggable={false}
+            className="absolute left-0 top-0 z-30 w-[66px] max-w-none select-none will-change-transform"
+            style={{ transformOrigin: "2% 98%", marginLeft: -1.5, marginTop: -69.5 }}
+          />
+          </div>
 
           <ol className="relative grid gap-12 md:grid-cols-4 md:gap-8">
             {steps.map((s, i) => (

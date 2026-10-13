@@ -10,9 +10,9 @@ import Script from "../Script";
 
 /** Alle Referenzbilder, als Geschichte sortiert: Format und Farbwelt wechseln sich ab. */
 const ids: PhotoId[] = [
-  "lace-dark-berries", "tart-dove", "lace-fruit-top", "slice-blue-close", "glaze-roses", "lace-tights",
+  "drip-roses", "tart-dove", "lace-fruit-top", "slice-blue-close", "glaze-roses", "lace-tights",
   "easter-berries", "cupcake-shoes", "mirror-slice", "cream-roses", "jelly-slices", "slice-table",
-  "drip-roses", "tartlets", "tartlets-berries", "lace-berries", "flake-roses", "slice-blue", "hero-hand",
+  "lace-dark-berries", "tartlets", "tartlets-berries", "lace-berries", "flake-roses", "slice-blue", "hero-hand",
 ];
 const list = ids.map((id) => photos[id]);
 

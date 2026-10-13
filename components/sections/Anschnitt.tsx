@@ -23,15 +23,15 @@ const ingredients: Ingredient[] = [
 /** Mobil: klein, leicht transparent, gleiten vom Rand herein */
 const ingredientsMobile: Ingredient[] = [
   { src: "blueberry", w: 44, x: 89, y: 2.5, rot: 12, o: 0.64 },
-  { src: "aril-b", w: 34, x: 3, y: 94, rot: -22, o: 0.68, hideMd: true },
-  { src: "mint-leaf-b", w: 54, x: 87, y: 95, rot: 18, o: 0.58 },
+  { src: "aril-b", w: 34, x: 3, y: 3.25, rot: -22, o: 0.68, hideMd: true },
+  { src: "mint-leaf-b", w: 54, x: 87, y: 86.25, rot: 18, o: 0.58, hideMd: true },
 ];
 
 export default function Anschnitt() {
   const p = photos["slice-blue"];
   return (
     <section id="anschnitt" className="relative isolate overflow-x-clip bg-sage py-28 text-cream lg:py-44">
-      <LaceFence tone="white" />
+      <LaceFence tone="choc" />
       <div className="relative mx-auto max-w-[1500px] px-5 md:px-10">
         <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
           <div className="lg:col-span-7">

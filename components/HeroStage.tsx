@@ -84,8 +84,10 @@ export default function HeroStage({ children }: { children?: React.ReactNode }) 
   const mobile = typeof navigator !== "undefined" && /Android|iPhone|iPad/i.test(navigator.userAgent);
 
   return (
-    <div className="relative mx-auto w-full max-w-[540px] lg:ml-auto">
-      <div aria-hidden className="absolute -inset-3 translate-x-3 translate-y-3 rounded-t-[999px] border border-rose/60" />
+    <div className="relative mx-auto w-full max-w-[540px] max-sm:w-[84%] lg:ml-auto">
+      {/* weißer Bilderrahmen um Bogen, Vorhang und Torte, dahinter eine dünne Versatzlinie */}
+      <div aria-hidden className="stage-echo fade-in" style={{ "--d": "0.1s" } as React.CSSProperties} />
+      <div aria-hidden className="stage-frame fade-in" style={{ "--d": "0.1s" } as React.CSSProperties} />
 
       {/* Bühne: solange das 3D lädt (oder ohne WebGL) hängt hier der CSS-Vorhang im Bogen */}
       <div className="fade-in relative aspect-[3/4]" style={{ "--d": "0.1s" } as React.CSSProperties}>
@@ -117,15 +119,15 @@ export default function HeroStage({ children }: { children?: React.ReactNode }) 
           drag.dragging = false;
         }}
       >
-        {/* Foto der Torte: sofort da, wird vom 3D-Modell abgelöst */}
-        <div className="fade-in absolute inset-x-0 bottom-[5.2%] aspect-square" style={{ "--d": "0.25s" } as React.CSSProperties}>
+        {/* Foto der Torte: sofort da, wird vom 3D-Modell abgelöst. Gleiche Größe wie die 3D-Torte: der Teller steht ganz im Rahmen */}
+        <div className="fade-in absolute inset-x-[7.15%] bottom-[13.8%] aspect-square" style={{ "--d": "0.25s" } as React.CSSProperties}>
           <Image
             src={photo.src}
             alt={photo.alt}
             fill
             loading="eager"
             fetchPriority="high"
-            sizes="(min-width: 1024px) 42vw, 90vw"
+            sizes="(min-width: 1024px) 34vw, (min-width: 640px) 490px, 76vw"
             className="object-contain drop-shadow-[0_34px_34px_rgba(60,30,52,0.35)] transition-opacity duration-[900ms]"
             style={{ opacity: ready ? 0 : 1 }}
           />
@@ -136,6 +138,8 @@ export default function HeroStage({ children }: { children?: React.ReactNode }) 
           </div>
         )}
       </div>
+      {/* feine Innenkante des Rahmens, liegt über Vorhang und Torte */}
+      <div aria-hidden className="stage-inset fade-in" style={{ "--d": "0.1s" } as React.CSSProperties} />
       {children}
     </div>
   );

@@ -20,7 +20,7 @@ const pillars = [
 ];
 
 const ingredients: Ingredient[] = [
-  { src: "strawberry", w: 112, x: 47, y: 90, depth: 0.8, rot: -16, spin: 26 },
+  { src: "strawberry", w: 112, x: 44, y: 89.5, depth: 0.8, rot: -16, spin: 26 },
   { src: "raspberry-top", w: 92, x: 2, y: 8, depth: 1.1, rot: 22, spin: 40 },
   { src: "mint-sprig", w: 130, x: 84, y: 92, depth: 0.6, rot: -10, spin: 16 },
 ];

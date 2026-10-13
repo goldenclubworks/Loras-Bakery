@@ -6,9 +6,9 @@ import Logo from "./Logo";
 const links = [
   { href: "#handschrift", label: "Handschrift" },
   { href: "#lora", label: "Lora" },
+  { href: "#preise", label: "Preise" },
   { href: "#atelier", label: "Atelier" },
   { href: "#galerie", label: "Galerie" },
-  { href: "#preise", label: "Preise" },
 ];
 
 export default function Header() {
