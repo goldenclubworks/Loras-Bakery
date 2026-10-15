@@ -1,6 +1,7 @@
 import type { CSSProperties } from "react";
 import Image from "next/image";
 import HeroStage from "../HeroStage";
+import HeroGarnish, { Heart } from "../HeroGarnish";
 import Ingredients, { type Ingredient } from "../Ingredients";
 import LaceBand from "../LaceBand";
 import Parallax from "../Parallax";
@@ -64,7 +65,8 @@ export default function Hero() {
         <div className="relative lg:col-span-5">
           <Parallax speed={0.025}>
             <HeroStage>
-              <figure className="fade-in absolute -bottom-14 -left-3 z-10 w-[33%] rotate-[-4deg] bg-cream p-1.5 shadow-[var(--shadow-soft)] sm:-left-10" style={d(1.7)}>
+              <HeroGarnish />
+              <figure className="fade-in absolute -bottom-14 -left-3 z-20 w-[33%] rotate-[-4deg] bg-cream p-1.5 shadow-[var(--shadow-soft)] sm:-left-10" style={d(1.7)}>
                 <Image
                   src={hand.src}
                   alt={hand.alt}
@@ -76,6 +78,7 @@ export default function Hero() {
                   className="aspect-[4/5] w-full object-cover"
                   style={{ objectPosition: hand.pos }}
                 />
+                <Heart className="absolute -bottom-3 -right-2 h-9 w-10 text-rose" />
               </figure>
             </HeroStage>
           </Parallax>

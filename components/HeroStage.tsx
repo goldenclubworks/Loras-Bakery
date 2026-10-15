@@ -84,7 +84,7 @@ export default function HeroStage({ children }: { children?: React.ReactNode }) 
   const mobile = typeof navigator !== "undefined" && /Android|iPhone|iPad/i.test(navigator.userAgent);
 
   return (
-    <div className="relative mx-auto w-full max-w-[540px] max-sm:w-[84%] lg:ml-auto">
+    <div className="relative mx-auto w-full max-w-[600px] max-sm:w-[84%] lg:ml-auto">
       {/* weißer Bilderrahmen um Bogen, Vorhang und Torte, dahinter eine dünne Versatzlinie */}
       <div aria-hidden className="stage-echo fade-in" style={{ "--d": "0.1s" } as React.CSSProperties} />
       <div aria-hidden className="stage-frame fade-in" style={{ "--d": "0.1s" } as React.CSSProperties} />

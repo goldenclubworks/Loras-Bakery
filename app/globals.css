@@ -584,14 +584,13 @@ html.preloading #top {
   background:
     linear-gradient(90deg, rgb(20 80 56 / 0) 0, rgb(20 80 56 / 0.4) 9%, rgb(20 80 56 / 0) 22%, rgb(20 80 56 / 0) 40%, rgb(20 80 56 / 0.34) 47%, rgb(20 80 56 / 0) 60%, rgb(20 80 56 / 0) 78%, rgb(20 80 56 / 0.36) 86%, rgb(20 80 56 / 0) 97%),
     radial-gradient(70% 40% at 70% 8%, rgb(255 255 255 / 0.16), transparent 70%),
-    linear-gradient(180deg, #92cdb1 0%, #85c1a1 55%, #76b293 100%);
+    linear-gradient(180deg, #5fae92 0%, #4f9f84 55%, #3f8d73 100%);
 }
 
 
 
-/* ── Hero-Bühne: weißer Bilderrahmen um Bogen, Vorhang und Torte ───────────────────────────────────
-   Rahmen, Versatzlinie und Innenkante folgen der Bogenform (oben halbrund, unten gerade). Der Rahmen sitzt
-   hinter dem Bogen, die Innenkante liegt als feiner Schatten darüber, so wirkt der Vorhang wie hinter dem Passepartout. */
+/* ── Hero-Bühne: feine Linien um Bogen, Vorhang und Torte ───────────────────────────────────
+   Linien und Innenkante folgen der Bogenform (oben halbrund, unten gerade); die Innenkante liegt als feiner Schatten über dem Vorhang. */
 .stage-frame,
 .stage-echo,
 .stage-inset {
@@ -601,20 +600,17 @@ html.preloading #top {
   border-radius: 999px 999px 0 0;
 }
 .stage-frame {
-  inset: calc(var(--fw) * -1);
-  background: linear-gradient(158deg, #fffefd 0%, #fdfaf6 48%, #f6efe7 100%);
-  box-shadow:
-    0 0 0 1px rgb(74 46 36 / 0.07),
-    0 40px 60px -34px rgb(74 46 36 / 0.52),
-    0 16px 26px -18px rgb(74 46 36 / 0.3);
+  /* kein weißer Rahmen mehr: nur eine feine rosé Linie knapp um den Bogen */
+  inset: calc(var(--fw) * -0.7);
+  border: 1px solid rgb(201 114 122 / 0.55);
 }
 .stage-echo {
-  /* dünne Versatzlinie, 12 px nach rechts unten: wie ein gezeichneter Schatten des Rahmens (liegt hinter dem Rahmen) */
-  top: calc(12px - var(--fw));
-  left: calc(12px - var(--fw));
-  right: calc(-12px - var(--fw));
-  bottom: calc(-12px - var(--fw));
-  border: 1px solid rgb(201 114 122 / 0.6);
+  /* zweite, blassere Linie, versetzt nach rechts unten: wie ein gezeichneter Schatten */
+  top: calc(10px - var(--fw));
+  left: calc(10px - var(--fw));
+  right: calc(-10px - var(--fw));
+  bottom: calc(-10px - var(--fw));
+  border: 1px solid rgb(201 114 122 / 0.28);
 }
 .stage-inset {
   inset: 0;
@@ -676,4 +672,31 @@ html.preloading #top {
   top: 76px;
   transform: rotate(-1.6deg) scale(1.04);
   filter: drop-shadow(0 8px 10px rgb(150 80 90 / 0.2));
+}
+
+/* ── Hero-Garnitur: Spitze, Band und Früchte rund um die Bühne (HeroGarnish) ───────────────────────
+   Mobil und Desktop haben je eigene Lage; die Werte kommen als Variablen aus der Komponente. */
+.hero-layer {
+  z-index: var(--m-z);
+  width: var(--m-w);
+  left: var(--m-left, auto);
+  right: var(--m-right, auto);
+  top: var(--m-top, auto);
+  bottom: var(--m-bottom, auto);
+}
+.hero-layer-in {
+  transform: rotate(var(--m-rot));
+  /* Schatten: die Spitze liegt auf dem Papier */
+  filter: drop-shadow(0 14px 14px rgb(92 40 52 / 0.26)) drop-shadow(0 3px 4px rgb(92 40 52 / 0.18));
+}
+@media (min-width: 1024px) {
+  .hero-layer {
+    z-index: var(--d-z);
+    width: var(--d-w);
+    left: var(--d-left, auto);
+    right: var(--d-right, auto);
+    top: var(--d-top, auto);
+    bottom: var(--d-bottom, auto);
+  }
+  .hero-layer-in { transform: rotate(var(--d-rot)); }
 }

@@ -9,7 +9,7 @@ import { ARCH_ALPHA_GLSL } from "./fabric";
 export const LOOP_SECONDS = 18;
 
 /** Palette vom Foto (sRGB), von den tiefsten Knicken bis zu den hellsten Bahnen */
-const RAMP = ["#1f5a46", "#256a52", "#2f7f63", "#44967a", "#67ae8c", "#84c6a6", "#a2dac3"];
+const RAMP = ["#164a3c", "#1d5c49", "#276f57", "#36856c", "#4c9b81", "#68b194", "#86c9ad"];
 
 const DISPLACE = /* glsl */ `
   uniform float uPhase;   // 0..2π über eine Schleife
