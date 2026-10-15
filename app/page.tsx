@@ -24,9 +24,9 @@ export default function Home() {
         <Handschrift />
         <Lora />
         <Faq />
-        <Pricing />
         <Process />
         <Gallery />
+        <Pricing />
         <Flavors />
         <InquiryLazy />
       </main>
