@@ -34,9 +34,9 @@ export default function Handschrift() {
       <div className="relative mx-auto grid max-w-[1500px] items-center gap-x-10 gap-y-20 px-5 md:px-10 lg:grid-cols-12">
         <div className="relative lg:col-span-5">
           <Parallax speed={0.03}>
-            <InView className="relative mx-auto max-w-[520px]">
+            <InView className="relative mx-auto max-w-[520px]" threshold={0} margin="0px 0px 22% 0px">
               <div aria-hidden className="absolute -inset-3 -translate-x-3 -translate-y-3 border border-rose/60" />
-              <div className="clip-up relative aspect-[3/4] overflow-hidden bg-blush">
+              <div className="slide-side relative aspect-[3/4] overflow-hidden bg-blush">
                 <Image
                   src={p.src}
                   alt={p.alt}

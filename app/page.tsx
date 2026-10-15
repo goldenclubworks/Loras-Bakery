@@ -2,7 +2,6 @@ import ReactDOM from "react-dom";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Preloader from "@/components/Preloader";
-import Anschnitt from "@/components/sections/Anschnitt";
 import Faq from "@/components/sections/Faq";
 import Flavors from "@/components/sections/Flavors";
 import Gallery from "@/components/sections/Gallery";
@@ -29,7 +28,6 @@ export default function Home() {
         <Process />
         <Gallery />
         <Flavors />
-        <Anschnitt />
         <InquiryLazy />
       </main>
       <Footer />

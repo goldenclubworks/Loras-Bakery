@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { photos, type PhotoId } from "@/lib/photos";
-import Divider from "../Divider";
+import LaceFence from "../LaceFence";
 import Ingredients from "../Ingredients";
 import Reveal from "../Reveal";
 import Script from "../Script";
@@ -57,24 +57,24 @@ export default function Gallery() {
   const current = open !== null ? list[open] : null;
 
   return (
-    <section id="galerie" className="relative isolate overflow-x-clip bg-cream py-28 lg:py-40">
-      <Divider className="absolute inset-x-5 top-0 md:inset-x-10" />
+    <section id="galerie" className="relative isolate overflow-x-clip bg-sage py-28 text-cream lg:py-40">
+      <LaceFence tone="choc" />
       <div className="mx-auto max-w-[1500px] px-5 md:px-10">
         <div className="flex flex-wrap items-end justify-between gap-8">
           <div>
             <Reveal>
-              <p className="eyebrow">Galerie</p>
+              <p className="eyebrow !text-cream/70">Galerie</p>
             </Reveal>
             <Reveal as="h2" delay={0.08} className="font-display mt-6 text-[clamp(2.6rem,5.4vw,5rem)] leading-[0.98]">
-              Inspiration aus <em className="text-berry">echten Momenten.</em>
+              Inspiration aus <em className="text-blush">echten Momenten.</em>
             </Reveal>
           </div>
           <div className="flex items-center gap-4">
-            <Script lines={["Mehr als nur Dessert."]} className="mr-4 hidden text-[2.2rem] text-berry md:block" rotate={-4} />
-            <button onClick={() => scroll(-1)} aria-label="Zurück blättern" className="grid h-11 w-11 place-items-center border border-choc/40 transition-colors hover:bg-choc hover:text-cream">
+            <Script lines={["Mehr als nur Dessert."]} className="mr-4 hidden text-[2.2rem] text-blush md:block" rotate={-4} />
+            <button onClick={() => scroll(-1)} aria-label="Zurück blättern" className="grid h-11 w-11 place-items-center border border-cream/40 transition-colors hover:bg-cream hover:text-choc">
               ←
             </button>
-            <button onClick={() => scroll(1)} aria-label="Weiter blättern" className="grid h-11 w-11 place-items-center border border-choc/40 transition-colors hover:bg-choc hover:text-cream">
+            <button onClick={() => scroll(1)} aria-label="Weiter blättern" className="grid h-11 w-11 place-items-center border border-cream/40 transition-colors hover:bg-cream hover:text-choc">
               →
             </button>
           </div>
@@ -112,11 +112,11 @@ export default function Gallery() {
 
       {/* Fortschritt: Zähler und feine Linie */}
       <div className="mx-auto mt-4 flex max-w-[1500px] items-center gap-5 px-5 md:px-10" aria-hidden>
-        <span className="font-display text-[1.1rem] italic text-berry tabular-nums">{String(pos.i + 1).padStart(2, "0")}</span>
-        <span className="relative h-px flex-1 bg-choc/20">
-          <span className="absolute inset-y-[-0.5px] left-0 h-[2px] origin-left bg-berry" style={{ width: "100%", transform: `scaleX(${0.06 + 0.94 * pos.p})` }} />
+        <span className="font-display text-[1.1rem] italic text-blush tabular-nums">{String(pos.i + 1).padStart(2, "0")}</span>
+        <span className="relative h-px flex-1 bg-cream/25">
+          <span className="absolute inset-y-[-0.5px] left-0 h-[2px] origin-left bg-blush" style={{ width: "100%", transform: `scaleX(${0.06 + 0.94 * pos.p})` }} />
         </span>
-        <span className="text-[0.72rem] tracking-[0.3em] text-cocoa tabular-nums">{String(list.length).padStart(2, "0")}</span>
+        <span className="text-[0.72rem] tracking-[0.3em] text-cream/70 tabular-nums">{String(list.length).padStart(2, "0")}</span>
       </div>
 
       <Ingredients

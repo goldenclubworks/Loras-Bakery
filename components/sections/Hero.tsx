@@ -27,7 +27,7 @@ const ingredientsMobile: Ingredient[] = [
 export default function Hero() {
   const hand = photos["hero-hand"];
   return (
-    <section id="top" className="relative isolate overflow-x-clip">
+    <section id="top" className="relative isolate z-[2] overflow-x-clip">
       <div
         aria-hidden
         className="absolute inset-0 -z-10"

@@ -337,6 +337,17 @@ h3 {
 .clip-up[data-in] > img {
   transform: none;
 }
+/* Foto gleitet von links ein und blendet dabei auf: kurz, und schon kurz vor dem Sichtbereich ausgelöst */
+.slide-side {
+  opacity: 0;
+  transform: translateX(-56px);
+  transition: opacity 0.7s var(--ease-out), transform 0.9s var(--ease-out);
+}
+[data-in] .slide-side,
+.slide-side[data-in] {
+  opacity: 1;
+  transform: none;
+}
 .pop {
   opacity: 0;
   transform: translateY(26px);
@@ -353,6 +364,7 @@ h3 {
   .clip-up { clip-path: none; }
   .clip-up > img { transform: none; }
   .pop { opacity: 1; transform: none; }
+  .slide-side { opacity: 1; transform: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .write { --p: 118%; animation: none !important; }
@@ -360,6 +372,7 @@ h3 {
   .clip-up { clip-path: none; transition: none; }
   .clip-up > img { transform: none; transition: none; }
   .pop { opacity: 1; transform: none; transition: none; }
+  .slide-side { opacity: 1; transform: none; transition: none; }
 }
 
 .btn-light {
