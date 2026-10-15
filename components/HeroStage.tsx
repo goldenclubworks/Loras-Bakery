@@ -21,10 +21,37 @@ function canRun3d() {
   }
 }
 
-/** Phones and low-core machines get the lighter model (about half the triangles, 2K maps). */
-function modelUrl() {
-  const low = /Android|iPhone|iPad/i.test(navigator.userAgent) || (navigator.hardwareConcurrency ?? 8) <= 4;
-  return low ? "/models/cake-lite.glb" : "/models/cake.glb";
+type Quality = { url: string; mb: number };
+
+/**
+ * Drei Stufen, je nach Gerät: Handy und schwache Rechner das leichte Modell (6,5 MB), normale Rechner das Standardmodell
+ * (13 MB, 500 000 Dreiecke), starke Rechner mit schneller Leitung die Ultra-Stufe (21 MB, 1,67 Mio. Dreiecke aus dem
+ * 180-MB-Original, feinere Spitze, schärfere Früchte).
+ */
+function pickModel(): Quality {
+  const nav = navigator as Navigator & { deviceMemory?: number; connection?: { effectiveType?: string } };
+  const cores = navigator.hardwareConcurrency ?? 8;
+  if (/Android|iPhone|iPad/i.test(navigator.userAgent) || cores <= 4) return { url: "/models/cake-lite.glb", mb: 6.5 };
+  const strong = cores >= 8 && (nav.deviceMemory ?? 8) >= 8 && (nav.connection?.effectiveType ?? "4g") === "4g";
+  return strong ? { url: "/models/cake-ultra.glb", mb: 21.3 } : { url: "/models/cake.glb", mb: 13.3 };
+}
+
+/** Lädt die Datei selbst, damit der Fortschritt sichtbar wird; useGLTF bekommt danach eine lokale Blob-URL. */
+async function download(q: Quality, onProgress: (p: number) => void, signal: AbortSignal) {
+  const res = await fetch(q.url, { signal });
+  if (!res.ok || !res.body) throw new Error("model");
+  const total = Number(res.headers.get("content-length")) || q.mb * 1024 * 1024;
+  const reader = res.body.getReader();
+  const parts: BlobPart[] = [];
+  let got = 0;
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    parts.push(value as BlobPart);
+    got += value.length;
+    onProgress(Math.min(0.99, got / total));
+  }
+  return URL.createObjectURL(new Blob(parts, { type: "model/gltf-binary" }));
 }
 
 /**
@@ -38,34 +65,38 @@ export default function HeroStage({ children }: { children?: React.ReactNode }) 
   const last = useRef(0);
   const [mount, setMount] = useState<string | null>(null);
   const [ready, setReady] = useState(false);
+  const [load, setLoad] = useState<number | null>(null);
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     if (!canRun3d()) return;
-    const url = modelUrl();
-    let done = false;
-    const events = ["pointerdown", "pointermove", "wheel", "scroll", "keydown", "touchstart"] as const;
-    const go = () => {
-      if (done) return;
-      done = true;
-      cleanup();
-      // einen Frame später, damit die Eingabe selbst nicht ruckelt
-      window.setTimeout(() => setMount(url), 120);
-    };
-    // Das 3D-Modell ist groß: erst bei der ersten Eingabe laden, spätestens nach ein paar Sekunden im Leerlauf.
+    const q = pickModel();
+    const ctl = new AbortController();
+    let blob: string | undefined;
     let timer = 0;
+    const start = () => {
+      setLoad(0.01);
+      download(q, setLoad, ctl.signal)
+        .then((u) => {
+          blob = u;
+          setLoad(1);
+          setMount(u);
+        })
+        .catch(() => setLoad(null));
+    };
+    // Die Seite zuerst: das Modell startet nach dem Laden der Seite, kurz nachdem der Preloader den Vorhang hebt.
+    // Bis es fertig ist, steht das Foto der Torte da und ein feiner Fortschrittsbalken zeigt den Stand.
     const arm = () => {
-      timer = window.setTimeout(go, 10000);
+      timer = window.setTimeout(start, 900);
     };
-    const cleanup = () => {
-      clearTimeout(timer);
-      events.forEach((e) => window.removeEventListener(e, go));
-      window.removeEventListener("load", arm);
-    };
-    events.forEach((e) => window.addEventListener(e, go, { passive: true, once: true }));
     if (document.readyState === "complete") arm();
     else window.addEventListener("load", arm, { once: true });
-    return cleanup;
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("load", arm);
+      ctl.abort();
+      if (blob) URL.revokeObjectURL(blob);
+    };
   }, []);
 
   useEffect(() => {
@@ -137,6 +168,17 @@ export default function HeroStage({ children }: { children?: React.ReactNode }) 
             <HeroScene url={mount} active={visible} onReady={() => setReady(true)} mobile={mobile} />
           </div>
         )}
+      </div>
+      {/* Ladestand der 3D-Torte: feine Linie unter dem Bogen, verschwindet, sobald die Torte steht */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -bottom-9 left-1/2 z-[19] w-[46%] -translate-x-1/2 text-center transition-opacity duration-700"
+        style={{ opacity: load !== null && !ready ? 1 : 0 }}
+      >
+        <div className="h-px w-full bg-rose/25">
+          <div className="h-full origin-left bg-rose transition-transform duration-300 ease-out" style={{ transform: `scaleX(${load ?? 0})` }} />
+        </div>
+        <p className="mt-2 text-[0.62rem] uppercase tracking-[0.34em] text-cocoa/70">Torte wird gebacken · {Math.round((load ?? 0) * 100)} %</p>
       </div>
       {/* feine Innenkante des Rahmens, liegt über Vorhang und Torte */}
       <div aria-hidden className="stage-inset fade-in" style={{ "--d": "0.1s" } as React.CSSProperties} />

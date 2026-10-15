@@ -21,7 +21,7 @@ def bake(kind, path, samples, noncolor=True, extra=None):
     sc.cycles.samples = samples
     bpy.ops.object.select_all(action="DESELECT")
     high.select_set(True); low.select_set(True); bpy.context.view_layer.objects.active = low
-    bpy.ops.object.bake(type=kind, use_selected_to_active=True, cage_extrusion=0.004, max_ray_distance=0.012,
+    bpy.ops.object.bake(type=kind, use_selected_to_active=True, cage_extrusion=0.003, max_ray_distance=0.01,
                         margin=10, margin_type="EXTEND", use_clear=True, normal_space="TANGENT")
     img.filepath_raw = path; img.file_format = "PNG"; img.save(); print("BAKED", kind, path)
     nt.nodes.remove(n)

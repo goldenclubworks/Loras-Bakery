@@ -129,11 +129,14 @@ export default function HeroScene({ url, active, onReady, mobile }: { url: strin
     >
       <PerformanceMonitor onDecline={() => setDpr([0.85, 1])} flipflops={2} />
       <hemisphereLight args={["#fff4e4", "#d9bfa8", 0.55]} />
-      <Environment resolution={256} frames={1}>
-        <Lightformer form="rect" intensity={4.2} color="#fff3e0" position={[-5, 5, 5]} scale={[7, 5, 1]} onUpdate={(s) => s.lookAt(0, 0, 0)} />
-        <Lightformer form="rect" intensity={2.8} color="#ffd8c4" position={[0, -3, 6]} scale={[10, 2, 1]} onUpdate={(s) => s.lookAt(0, 0, 0)} />
-        <Lightformer form="rect" intensity={3} color="#e8eeff" position={[6, 3, -4]} scale={[4, 6, 1]} onUpdate={(s) => s.lookAt(0, 0, 0)} />
-        <Lightformer form="rect" intensity={2.2} color="#fff8ee" position={[0, 9, 0]} scale={[10, 10, 1]} onUpdate={(s) => s.lookAt(0, 0, 0)} />
+      <Environment resolution={512} frames={1}>
+        {/* Studio wie auf einem Foto: große Softbox oben links, zwei lange Streifenlichter (ziehen sich als Glanzlinien über Schokolade und Früchte), warmes Gegenlicht, helle Platte als Bounce von unten */}
+        <Lightformer form="rect" intensity={4.6} color="#fff1e0" position={[-5, 6, 5]} scale={[8, 6, 1]} onUpdate={(s) => s.lookAt(0, 0, 0)} />
+        <Lightformer form="rect" intensity={7} color="#fff6ea" position={[-8, 1.5, 3]} scale={[1.1, 9, 1]} onUpdate={(s) => s.lookAt(0, 0, 0)} />
+        <Lightformer form="rect" intensity={4} color="#eaf0ff" position={[8, 2, 2]} scale={[1.4, 8, 1]} onUpdate={(s) => s.lookAt(0, 0, 0)} />
+        <Lightformer form="rect" intensity={5} color="#ffe2c4" position={[0, 4, -8]} scale={[11, 2.2, 1]} onUpdate={(s) => s.lookAt(0, 0, 0)} />
+        <Lightformer form="rect" intensity={2.4} color="#ffd8c4" position={[0, -3, 6]} scale={[10, 2, 1]} onUpdate={(s) => s.lookAt(0, 0, 0)} />
+        <Lightformer form="rect" intensity={1.8} color="#fff8ee" position={[0, 9, 0]} scale={[10, 10, 1]} onUpdate={(s) => s.lookAt(0, 0, 0)} />
       </Environment>
       <Stage url={url} onReady={onReady} mobile={mobile} />
     </Canvas>

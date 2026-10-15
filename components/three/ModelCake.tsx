@@ -22,10 +22,56 @@ function addGlints(mat: THREE.MeshPhysicalMaterial, uniforms: { uModelView: { va
     shader.uniforms.uTime = uniforms.uTime;
     shader.fragmentShader = shader.fragmentShader
       .replace(
+        "#include <map_fragment>",
+        `#include <map_fragment>
+        #ifdef USE_MAP
+        {
+          vec3 c = diffuseColor.rgb;
+          float lum = dot(c, vec3(0.2126, 0.7152, 0.0722));
+          float mx = max(c.r, max(c.g, c.b));
+          float mn = min(c.r, min(c.g, c.b));
+          float sat = (mx - mn) / max(mx, 1e-4);
+          gRed = smoothstep(1.18, 1.5, c.r / max(c.g, 1e-3)) * smoothstep(0.22, 0.45, sat);
+          gGreen = smoothstep(1.0, 1.2, c.g / max(c.r, 1e-3)) * smoothstep(1.02, 1.2, c.g / max(c.b, 1e-3)) * smoothstep(0.15, 0.35, sat);
+          gBlue = (1.0 - gRed) * (1.0 - gGreen) * smoothstep(0.55, 0.85, c.b / max(c.r, 1e-3)) * smoothstep(0.45, 0.2, lum) * smoothstep(0.05, 0.12, lum);
+          gChoc = (1.0 - gRed) * (1.0 - gGreen) * (1.0 - gBlue) * smoothstep(0.26, 0.12, lum);
+          gDust = smoothstep(0.62, 0.8, lum) * smoothstep(0.3, 0.1, sat);
+        }
+        #endif`,
+      )
+      .replace(
+        "#include <roughnessmap_fragment>",
+        `#include <roughnessmap_fragment>
+        {
+          float n1 = h21(floor(vMapUv * 900.0));
+          float base = roughnessFactor;
+          float r = mix(base, 0.7, 0.35);
+          r = mix(r, 0.26 + 0.1 * n1, gChoc);
+          r = mix(r, 0.36 + 0.08 * n1, gRed);
+          r = mix(r, 0.55 + 0.1 * n1, gBlue);
+          r = mix(r, 0.46, gGreen);
+          r = mix(r, 0.88, gDust * (1.0 - gChoc));
+          roughnessFactor = clamp(r, 0.08, 1.0);
+        }`,
+      )
+      .replace(
+        "#include <lights_physical_fragment>",
+        `#include <lights_physical_fragment>
+        #ifdef USE_CLEARCOAT
+        {
+          float cc = 0.08 + gChoc * 0.95 + gRed * 0.85 + gBlue * 0.3 + gGreen * 0.45;
+          cc *= 1.0 - gDust * 0.9;
+          material.clearcoat = clamp(cc, 0.0, 1.0);
+          material.clearcoatRoughness = mix(0.3, 0.12, max(gRed, gChoc));
+        }
+        #endif`,
+      )
+      .replace(
         "#include <common>",
         `#include <common>
         uniform mat3 uModelView;
         uniform float uTime;
+        float gChoc; float gRed; float gBlue; float gGreen; float gDust;
         float h11(float p){ p = fract(p * .1031); p *= p + 33.33; p *= p + p; return fract(p); }
         float h21(vec2 p){ vec3 q = fract(vec3(p.xyx) * .1031); q += dot(q, q.yzx + 33.33); return fract((q.x + q.y) * q.z); }
         vec3 h23(vec2 p){ return vec3(h21(p), h21(p + 17.1), h21(p + 41.7)); }`,
@@ -57,7 +103,7 @@ function addGlints(mat: THREE.MeshPhysicalMaterial, uniforms: { uModelView: { va
         #endif`,
       );
   };
-  mat.customProgramCacheKey = () => "cake-glints-v1";
+  mat.customProgramCacheKey = () => "cake-glints-v3";
 }
 
 /** GPU uniforms are mutated imperatively every frame, outside React's render model. */

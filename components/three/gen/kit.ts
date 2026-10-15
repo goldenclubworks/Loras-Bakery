@@ -46,13 +46,36 @@ export function makePlateGeometry() {
 }
 
 export function makePlateMaterial() {
-  return new THREE.MeshPhysicalMaterial({
-    color: "#f2eee7",
-    roughness: 0.2,
-    clearcoat: 1,
-    clearcoatRoughness: 0.12,
+  const m = new THREE.MeshPhysicalMaterial({
+    color: "#eee8de",
+    roughness: 0.28,
+    clearcoat: 0.6,
+    clearcoatRoughness: 0.2,
     side: THREE.DoubleSide,
   });
+  // Porzellan mit Tiefe: dunkler Kontaktschatten dicht am Tortenrand, der nach außen rasch verläuft,
+  // und ein leicht warmer Verlauf zur Fahne hin. Radius in Lokalkoordinaten der Platte (Rand bei 1,44).
+  m.onBeforeCompile = (shader) => {
+    shader.vertexShader = shader.vertexShader
+      .replace("#include <common>", "#include <common>\nvarying vec3 vPlateP;")
+      .replace("#include <begin_vertex>", "#include <begin_vertex>\nvPlateP = position;");
+    shader.fragmentShader = shader.fragmentShader
+      .replace("#include <common>", "#include <common>\nvarying vec3 vPlateP;")
+      .replace(
+        "#include <color_fragment>",
+        `#include <color_fragment>
+        {
+          float pr = length(vPlateP.xz);
+          float occ = 0.55 * exp(-max(pr - 1.3, 0.0) * 16.0);
+          float well = 0.0;
+          float rim = smoothstep(1.2, 1.42, pr);
+          diffuseColor.rgb *= 1.0 - occ - well;
+          diffuseColor.rgb = mix(diffuseColor.rgb, diffuseColor.rgb * vec3(1.02, 0.99, 0.95), rim);
+        }`,
+      );
+  };
+  m.customProgramCacheKey = () => "plate-v3";
+  return m;
 }
 
 /** Tier body with a softly rounded top edge. */
